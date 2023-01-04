@@ -1,0 +1,59 @@
+from news.models import *
+u1 = User.objects.create_user(username='Danella')
+u1
+u2 = User.objects.create_user(username='Maria')
+u2
+Author.objects.create(authorUser=u1)
+Author.objects.create(authorUser=u2)
+Category.objects.create(name='Culture')
+Category.objects.create(name='IT')
+Category.objects.create(name='Humor')
+Category.objects.create(name='The science')
+author = Author.objects.get(id=1)
+author
+Post.objects.create(author=author, categoryType="NW", title='sometitle', text='somebigtext')
+author_1 = Author.objects.get(id=1)
+author
+Post.objects.create(author=author_1, categoryType="AR", title='sometitle', text='somebigtext')
+author_2 = Author.objects.get(id=2)
+author
+Post.objects.create(author=author_2, categoryType= "AR", title='sometitle', text='somebigtext')
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=2))
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=1))
+Post.objects.get(id=2).postCategory.add(Category.objects.get(id=2))
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytextbyauthor')
+Comment.objects.create(commentPost=Post.objects.get(id=2), commentUser=Author.objects.get(id=2).authorUser, text='anytextbyauthor')
+Comment.objects.create(commentPost=Post.objects.get(id=3), commentUser=Author.objects.get(id=1).authorUser, text='anytext')
+Comment.objects.create(commentPost=Post.objects.get(id=4), commentUser=Author.objects.get(id=2).authorUser, text='anytext')
+Comment.objects.get(id=1).like()
+Comment.objects.get(id=1).like()
+Comment.objects.get(id=1).dislike()
+Comment.objects.get(id=2).like()
+Comment.objects.get(id=3).like()
+Comment.objects.get(id=4).dislike()
+Post.objects.get(id=1).like()
+Post.objects.get(id=2).dislike()
+Comment.objects.get(id=1).rating
+Comment.objects.get(id=2).rating
+Post.objects.get(id=1).rating
+Post.objects.get(id=2).rating
+a = Author.objects.get(id=1)
+a.update_rating()
+a.ratingAuthor
+b = Author.objects.get(id=2)
+b.update_rating()
+b.ratingAuthor
+a = Author.objects.order_by('-ratingAuthor')[:1]
+a
+for i in a:
+    i.ratingAuthor
+    i.authorUser.username
+
+
+
+
+
+
+
+
